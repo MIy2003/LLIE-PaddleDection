@@ -1,1 +1,6 @@
 *.pdf
+PPYOLOE/demo_input/
+PPYOLOE/demo_output/
+PPYOLOE/video_output/
+PPYOLOE/video_input/
+PPYOLOE/ppyoloe_crn_l_300e_coco/model.pdiparams

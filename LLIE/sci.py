@@ -5,7 +5,7 @@ import numpy as np
 import paddle.vision.transforms as transforms
 import os
 #from x2paddle.op_mapper.onnx2paddle import onnx_custom_layer as x2paddle_nn
-from multi_read_data import MemoryFriendlyLoader
+from .multi_read_data import MemoryFriendlyLoader
 from paddle.io import DataLoader
 class ONNXModel(paddle.nn.Layer):
     def __init__(self):
@@ -39,7 +39,7 @@ def inference(x2paddle_input):
     # There are 1 inputs.
     # x2paddle_input: shape-[-1, 3, 600, 400], type-float32.
     paddle.disable_static()
-    params = paddle.load(r'/gemini/code/SCI/pd_model/model.pdparams')
+    params = paddle.load(r'/home/aistudio/work/LLIE/model.pdparams')
     model = ONNXModel()
     model.set_dict(params, use_structured_name=True)
     model.eval()
@@ -56,10 +56,9 @@ def save_images(tensor, path):
 
 if __name__ =='__main__':
     #file='/gemini/code/SCI/data/difficult/234.png'
-    input_dir_name='image/'
-    output_dir_name='./enhanced_image'
+    input_dir_name='/home/aistudio/work/PPYOLOE/demo_input'
+    output_dir_name='/home/aistudio/work/LLIE/image_output'
     #input_dir_name=os.makedirs(input_dir_name,exist_ok=True)
-
     BATCH_SIZE=10
     Dataset = MemoryFriendlyLoader(img_dir=input_dir_name)
     dataloader = DataLoader(Dataset,

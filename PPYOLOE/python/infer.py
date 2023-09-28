@@ -1066,6 +1066,24 @@ def main():
             }
             bench_log(detector, img_list, model_info, name='DET')
 
+def infer_main():
+    paddle.enable_static()
+    parser = argsparser()
+    FLAGS = parser.parse_args()
+    print_arguments(FLAGS)
+    FLAGS.model_dir = '/home/aistudio/work/PPYOLOE/ppyoloe_crn_l_300e_coco'
+    FLAGS.image_dir = '/home/aistudio/work/PPYOLOE/demo_input'
+    FLAGS.device = 'gpu'
+    FLAGS.run_mode='paddle'
+    FLAGS.output_dir = '/home/aistudio/work/PPYOLOE/demo_output'
+    FLAGS.device = FLAGS.device.upper()
+    assert FLAGS.device in ['CPU', 'GPU', 'XPU', 'NPU'
+                            ], "device should be CPU, GPU, XPU or NPU"
+    assert not FLAGS.use_gpu, "use_gpu has been deprecated, please use --device"
+    assert not (
+        FLAGS.enable_mkldnn == False and FLAGS.enable_mkldnn_bfloat16 == True
+    ), 'To enable mkldnn bfloat, please turn on both enable_mkldnn and enable_mkldnn_bfloat16'
+    main()
 
 if __name__ == '__main__':
     paddle.enable_static()
